@@ -1,0 +1,85 @@
+# Bramwell HA Add-on manifest.
+#
+# Per current Supervisor docs (2026.04+), `config.yaml` + `Dockerfile`
+# are the required files; the legacy `build.yaml` is no longer used.
+# This app ships as a PRE-BUILT multi-arch image (see `image:` below):
+# the publish workflow (.github/workflows/app-publish.yml) builds it with
+# `docker buildx -f addon/Dockerfile .` (repo-root context — the Dockerfile
+# COPYs from src/, docker/, addon/) and pushes per-arch tags to ghcr.io,
+# so Supervisor PULLS the image instead of building it on-device.
+#
+# Backlog #18 — closes the install gap for HA-OS users (the dominant
+# install type, ~75% of HA installs per the product spec). Without
+# this, those users would have to downgrade to HA Container or Compose
+# to install Bramwell, which most won't.
+name: Bramwell
+version: "1.0.0-beta.4"
+slug: bramwell
+description: >-
+  Bramwell — your AI butler for the smart home. Alfred runs real devices,
+  drives the open internet on your behalf, and keeps quiet excellence
+  across every household errand.
+url: https://bramwell.app
+arch:
+  - amd64
+  - aarch64
+# Pre-built image published to GHCR by .github/workflows/app-publish.yml.
+# Supervisor substitutes {arch} (amd64 / aarch64) and pulls the tag equal
+# to `version:` above. Delete this line to force an on-device local build
+# (which needs the full repo as build context, not the addon/ dir alone).
+image: ghcr.io/bengulliford/bramwell-{arch}
+init: false
+boot: auto
+startup: services
+hassio_api: true
+hassio_role: default
+homeassistant_api: true
+host_network: false
+ingress: true
+ingress_port: 8080
+# Round-1 review fix: drop the explicit `ports:` block. With `ingress: true`
+# Bramwell is reached via the Supervisor's Ingress proxy; the previous
+# `"8080/tcp": null` made the port hidden by default anyway, so it was
+# zero-value documentation. Drop entirely — operators who want direct
+# port access can override via the add-on UI.
+# Map Home Assistant's config dir read-write so LocalFileClient can edit
+# YAML in place (run.sh sets HaConfig__Path=/config). The legacy `config:rw`
+# short-form map type was retired (HA 2026.x — "Add-ons" became "Apps";
+# `config` is no longer a valid map type). `homeassistant_config` is its
+# successor, but its default mount path moved to /homeassistant — so we pin
+# `path: /config` to keep run.sh's in-container mount point unchanged.
+map:
+  - type: homeassistant_config
+    read_only: false
+    path: /config
+# Round-2 review fix: declare the health probe so Supervisor's watchdog
+# restarts Brain on a wedge. AuthMiddleware.cs already carves out
+# /api/health for the Supervisor probe (lines 49-52); without this
+# manifest line, the carve-out was dead code.
+watchdog: "http://[HOST]:[PORT:8080]/api/health"
+options:
+  ha_url: "http://supervisor/core"
+  frigate_base_url: ""
+schema:
+  ha_url: str
+  frigate_base_url: str?
+# Round-1 review fix: removed `license_key` / `llm_provider` / `llm_token`
+# from the options schema. Brain doesn't bind `License__Key` or
+# `LlmSeed__*` env vars (license_key is read from the SQLite settings
+# table; LlmSeed isn't referenced anywhere in src/Bramwell.Brain/), so
+# operators pasting a license into the add-on options would think they
+# were activated but Brain would never see the value. Cleaner path for
+# v1: enter the license + LLM provider via the Settings UI after first
+# launch, the same way every other install type works. Restore here once
+# a startup seeding path writes these into the settings table.
+# AppArmor on, using Supervisor's DEFAULT generated profile (no bundled
+# apparmor.txt). The previous hand-rolled profile broke the s6-overlay `/init`
+# (it granted `/init/** ix` but not the `/init` binary), so every container died
+# with "can't open '/init': Permission denied". The default profile runs the
+# base image + the /config + /data mounts correctly while keeping confinement —
+# sensible since Brain runs semi-autonomous tool/browser actions. Do NOT
+# reintroduce a hand-tightened custom profile; if confinement needs to be
+# narrowed, derive it from Supervisor's default.
+apparmor: true
+panel_icon: mdi:robot-vacuum-variant
+panel_title: Bramwell
