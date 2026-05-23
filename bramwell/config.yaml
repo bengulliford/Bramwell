@@ -13,7 +13,7 @@
 # this, those users would have to downgrade to HA Container or Compose
 # to install Bramwell, which most won't.
 name: Bramwell
-version: "1.0.0-beta.6"
+version: "1.0.0-beta.7"
 slug: bramwell
 description: >-
   Bramwell — your AI butler for the smart home. Alfred runs real devices,
@@ -37,11 +37,18 @@ homeassistant_api: true
 host_network: false
 ingress: true
 ingress_port: 8080
-# Round-1 review fix: drop the explicit `ports:` block. With `ingress: true`
-# Bramwell is reached via the Supervisor's Ingress proxy; the previous
-# `"8080/tcp": null` made the port hidden by default anyway, so it was
-# zero-value documentation. Drop entirely — operators who want direct
-# port access can override via the add-on UI.
+# Two front doors:
+#  - Ingress (above) — embedded in HA's sidebar, gated by HA login (origin IP).
+#  - Direct port (below) — open Bramwell in its OWN browser tab via the
+#    "Open Web UI" button. This surface is gated by the "Log in with Home
+#    Assistant" OAuth flow (HaOAuthService + UserSessionService); a request
+#    without a valid Bramwell session cookie 401s. Publishing 8080→host lets
+#    HA render the OPEN WEB UI button pointing at it.
+ports:
+  8080/tcp: 8080
+ports_description:
+  8080/tcp: "Bramwell standalone UI — opens in its own tab, login with Home Assistant"
+webui: "http://[HOST]:[PORT:8080]/"
 # Map Home Assistant's config dir read-write so LocalFileClient can edit
 # YAML in place (run.sh sets HaConfig__Path=/config). The legacy `config:rw`
 # short-form map type was retired (HA 2026.x — "Add-ons" became "Apps";
@@ -59,9 +66,15 @@ map:
 watchdog: "http://[HOST]:[PORT:8080]/api/health"
 options:
   ha_url: "http://supervisor/core"
+  # User-facing HA URL for the "Log in with Home Assistant" redirect (the
+  # browser must reach it). Leave blank to auto-detect (same host as the
+  # standalone tab, port 8123); set it if HA runs on a different host/port
+  # or behind a reverse proxy / Nabu Casa.
+  ha_user_url: ""
   frigate_base_url: ""
 schema:
   ha_url: str
+  ha_user_url: str?
   frigate_base_url: str?
 # Round-1 review fix: removed `license_key` / `llm_provider` / `llm_token`
 # from the options schema. Brain doesn't bind `License__Key` or
