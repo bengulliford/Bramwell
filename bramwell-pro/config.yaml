@@ -1,0 +1,65 @@
+# Bramwell Pro HA Add-on manifest (fat variant — Brain + browser-agent).
+#
+# Same Brain/Concierge surface as the lean `config.yaml`, but the image also
+# bundles the browser-agent (Chromium/Playwright) running as a second s6
+# longrun, so Local Pro gets on-box web automation without a separate add-on.
+# Built from addon/Dockerfile.pro (see addon-tier-app-split memory + the
+# ADDON-DISTRIBUTION-PLAN). Published as a PRE-BUILT multi-arch image.
+name: Bramwell Pro
+version: "1.0.0-pro.0"
+slug: bramwell-pro
+description: >-
+  Bramwell Pro — Alfred plus the on-box browser-agent. Runs real devices,
+  drives the open internet on your behalf, and handles household errands,
+  all on your own hardware (Local Pro).
+url: https://bramwell.app
+arch:
+  - amd64
+  - aarch64
+# Pre-built image published to GHCR by .github/workflows/app-publish.yml.
+# Supervisor substitutes {arch} and pulls the tag equal to `version:` above.
+image: ghcr.io/bengulliford/bramwell-pro-{arch}
+init: false
+boot: auto
+startup: services
+hassio_api: true
+hassio_role: default
+homeassistant_api: true
+host_network: false
+ingress: true
+ingress_port: 8080
+# Two front doors, same as the lean app: HA Ingress (sidebar) + a direct
+# 8080 tab gated by "Log in with Home Assistant". The bundled browser-agent
+# (:8099) and its noVNC (:6080) are NOT published — Brain reverse-proxies
+# noVNC at /api/browser/vnc/* with auth + Pro-tier gating.
+ports:
+  8080/tcp: 8080
+ports_description:
+  8080/tcp: "Bramwell standalone UI — opens in its own tab, login with Home Assistant"
+webui: "http://[HOST]:[PORT:8080]/"
+# Map HA's config dir rw so LocalFileClient can edit YAML in place
+# (run.sh sets HaConfig__Path=/config).
+map:
+  - type: homeassistant_config
+    read_only: false
+    path: /config
+# Supervisor watchdog restarts Brain on a wedge (AuthMiddleware carves out
+# /api/health for the probe).
+watchdog: "http://[HOST]:[PORT:8080]/api/health"
+options:
+  ha_url: "http://supervisor/core"
+  ha_user_url: ""
+  frigate_base_url: ""
+schema:
+  ha_url: str
+  ha_user_url: str?
+  frigate_base_url: str?
+# AppArmor ON using Supervisor's DEFAULT generated profile (no bundled
+# apparmor.txt). The browser-agent runs Chromium under it; the default
+# profile permits the base image + /config + /data mounts while keeping
+# confinement. Do NOT hand-roll a profile (the lean app's history shows a
+# custom profile broke the s6 /init). If confinement needs narrowing,
+# derive from Supervisor's default and validate Chromium still launches.
+apparmor: true
+panel_icon: mdi:robot-vacuum-variant
+panel_title: Bramwell Pro
