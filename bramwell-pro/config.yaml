@@ -6,7 +6,7 @@
 # Built from addon/Dockerfile.pro (see addon-tier-app-split memory + the
 # ADDON-DISTRIBUTION-PLAN). Published as a PRE-BUILT multi-arch image.
 name: Bramwell Pro
-version: "1.0.0-pro.0"
+version: "1.0.0-pro.2"
 slug: bramwell-pro
 description: >-
   Bramwell Pro — Alfred plus the on-box browser-agent. Runs real devices,
