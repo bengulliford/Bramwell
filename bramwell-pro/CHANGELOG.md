@@ -1,6 +1,6 @@
-# Bramwell Add-on Changelog
+# Bramwell Pro Add-on Changelog
 
-> Releases pro.5 through pro.15 were **Pro-only** while the free (lean) add-on stayed at 1.0.0-beta.10. From **1.0.0-\*.16** the two share one version line again — the same release ships as `beta.16` (free) and `pro.16` (Pro).
+> Bramwell and Bramwell Pro ship from one release line. Releases pro.5 through pro.15 were **Pro-only** while the free (lean) add-on stayed at 1.0.0-beta.10; from **1.0.0-\*.16** the two share one version line again — the same release ships as `beta.N` (free) and `pro.N` (Pro). Pro's history starts at `pro.3` (shipped alongside `beta.9`); earlier lean-only releases are listed in the free add-on's changelog.
 
 ## 1.0.0-pro.17 / beta.17 (2026-08-05)
 
@@ -89,36 +89,9 @@
 - **Credits** — top-up webhook + "Buy more credits" for Cloud tiers; default-model pricing corrected.
 - **Pro (1.0.0-pro.4)** — the browser agent now **reaches all websites and blocks only genuinely dangerous ones** (malware feeds, internal/SSRF targets, and unsafe URL schemes stay blocked). Set `BRAMWELL_BLOCK_LEGAL_CAUTION_SITES=true` to restore the previous caution list (Amazon/LinkedIn/OpenTable/gov/insurance).
 
-## 1.0.0-beta.9 (2026-06-09)
+## 1.0.0-beta.9 / Pro 1.0.0-pro.3 (2026-06-09)
 
 - **Your data now survives switching between Bramwell and Bramwell Pro** — settings, license, and stored credentials live in a shared location (`/config/.bramwell`) and migrate automatically from the old `/data` home on first start. The secret + database move together or not at all, so stored credentials can never be left undecryptable; if a mixed state is detected the log explains how to recover. **Update and start this version once before installing Bramwell Pro.**
 - **Modules** — install-path-aware setup hints (bundled vs install-Pro) and a hardware gate for low-RAM boxes.
 - **Companion auto-deploy** — the add-on installs the bundled Bramwell Companion into `custom_components` if you don't already have it (a HACS-managed copy stays authoritative).
 - **Pro (1.0.0-pro.3)** — kill switch, action audit log, screenshots, and HA-task navigation fully wired inside the single-container image (per-boot gateway token); crash-restart X cleanup fixed (`procps`); hidden founder dev-mode override.
-
-## 1.0.0-beta.8 (2026-05-28)
-
-- **Chat** — a **Stop** button cancels Alfred mid-reply; the "Thinking…" label is now readable in light mode.
-- **Reports** — each report shows a distinct name (the areas a structured report covered, or a custom report's topic) plus its date & time, on both the Reports tab and the Overview "Past Reports" list.
-- **Briefing** — news topics + interest chips, a cleaner headline-led layout, and assorted quality fixes.
-- **Voice** — terser, triage-first spoken replies.
-- **Usage** — Cloud tiers can see remaining credits.
-- **Diagnostics** — degraded dependencies (Home Assistant / LLM / browser-agent down), license tier changes, and dashboard errors now surface in the add-on log for faster support.
-
-## 1.0.0-beta.7 (2026-05-23)
-
-- **Reports tab** — browse saved Smart Home Analysis reports and generate new ones; report styling fixed (renders correctly offline in the sandboxed viewer).
-- **"Log in with Home Assistant"** for the standalone-tab surface (OAuth; Bramwell never sees your HA password).
-- **Manual floor plans** via Home-Assistant-areas drag-and-drop.
-- **Voice** — spoken-friendly TTS replies + an opt-in "Speak responses" toggle; the dashboard mic now works in Firefox/Safari by routing through your own HA speech-to-text.
-- **Notes** render Markdown (bold/italics/lists/tables/code) properly.
-- Settings now save consistently; numerous reliability fixes (LLM config, HA reconnect/circuit-breaker, license activation grace).
-
-## 1.0.0-beta.3 (2026-05-15)
-
-- First add-on release. Backlog [#18](../docs/BACKLOG.md) closes the install gap for HA-OS users.
-- Multi-arch base images (`amd64`, `aarch64`).
-- HA Ingress UI; Bramwell auth gate trusts the Ingress `X-Remote-User` header.
-- Bind mount of `/config` so `LocalFileClient` can read + write HA YAML directly without an SMB hop.
-- Options schema captures HA URL, encryption secret, license key, optional Frigate URL, optional pre-seeded LLM provider + token.
-- AppArmor profile constraining Brain to its expected surface.
