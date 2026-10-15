@@ -5,10 +5,13 @@ users (the dominant install type, ~75% of HA installs per the product
 spec). Without this, those users would have to downgrade to HA
 Container or Compose to install Bramwell, which most won't.
 
-This directory now holds the add-on source. The community repo
-`github.com/bengulliford/bramwell-addons` is the install surface;
-its `repository.yaml` points at THIS directory for the add-on
-manifest and Dockerfile.
+This directory is the add-on **source of truth**. The public install
+surface is the separate repo `github.com/bengulliford/Bramwell`, which
+carries a root `repository.yaml` plus a `bramwell/config.yaml` mirror of
+this `config.yaml`. That mirrored manifest references the pre-built GHCR
+image (`ghcr.io/bengulliford/bramwell-{arch}`), so Supervisor pulls the
+image rather than building from a Dockerfile — the Dockerfile here is
+consumed by the publish workflow, not by on-device installs.
 
 ## Why the add-on is the primary distribution path
 
@@ -31,7 +34,8 @@ add-ons via a one-click flow. Add-on installs get:
 ## Files in this directory (shipped #18)
 
 - `config.yaml` — add-on manifest (slug, version, options schema,
-  `hassio_api: true`, `map: [config:rw]`, Ingress port 8080).
+  `hassio_api: true`, `map: homeassistant_config` (path `/config`),
+  Ingress port 8080).
 - `Dockerfile` — multi-stage build that compiles Brain + Concierge
   and layers .NET 10 runtime onto the HA Supervisor base image. The
   `BUILD_FROM` arg is honored for backwards-compatibility with builders
@@ -45,10 +49,11 @@ add-ons via a one-click flow. Add-on installs get:
 
 ## Companion files (separate repos)
 
-- `repository.yaml` — sits at the root of the *separate* community repo
-  `github.com/bengulliford/bramwell-addons`, not in this directory. The
-  community repo's README points at this directory for the add-on
-  source.
+- `repository.yaml` + `bramwell/config.yaml` — live at the root of the
+  *separate* public install repo `github.com/bengulliford/Bramwell`, not
+  in this directory. That repo is publish-only; `addon/` here stays the
+  source of truth, mirrored on release (same pattern as BramwellCompanion
+  for the HACS integration).
 - HACS companion (`bramwell_companion`) lives at `companion/`; it
   registers Alfred as a `conversation.agent` and exposes a few sensors.
 
@@ -58,11 +63,12 @@ add-ons via a one-click flow. Add-on installs get:
 Alfred as a `conversation.agent` and exposes a few sensors. Linked here
 for context only — it doesn't go in this directory.
 
-## Out of scope for this sprint (Sprint 6-8 deliverable, not now)
+## Still open / future work
 
-- Actual add-on shipment.
-- HA Ingress auth wiring in `AuthMiddleware.cs`.
-- The community repo at `github.com/bengulliford/bramwell-addons`.
+The add-on has shipped (the `github.com/bengulliford/Bramwell` install
+repo exists and publishes pre-built GHCR images; Ingress + `X-Remote-User`
+auth are wired in `AuthMiddleware.cs`). Remaining:
+
 - HA Supervisor API integration for triggering reloads from inside the
   add-on (today the Brain calls HA's REST `homeassistant.check_config`
   service, which works in both deployment modes).
