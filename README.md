@@ -1,5 +1,7 @@
 # Bramwell — Home Assistant App
 
+[![Tip via PayPal](https://img.shields.io/badge/Tip%20via%20PayPal-0070BA?logo=paypal&style=flat&logoColor=white)](https://paypal.me/bengulliford)
+
 Your AI butler for the smart home. Alfred runs real devices, drives the open internet on your behalf, and keeps quiet excellence across every household errand.
 
 ## Install
