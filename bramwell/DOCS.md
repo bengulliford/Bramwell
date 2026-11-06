@@ -45,6 +45,6 @@ The app log surfaces Brain's `Microsoft.Extensions.Logging` output with the bash
 
 ## Support
 
-See [`docs/SUPPORT.md`](https://github.com/bengulliford/HomeClaw/blob/dev/docs/SUPPORT.md) for the redacted bundle workflow and where to file reports.
+See [`docs/SUPPORT.md`](https://github.com/bengulliford/Bramwell/blob/main/SUPPORT.md) for the redacted bundle workflow and where to file reports.
 
 Bramwell is built and supported by one person. If Alfred earns his keep in your home, you can [leave a tip via PayPal](https://paypal.me/bengulliford). Entirely optional — nothing is gated behind it.
