@@ -5,8 +5,8 @@
 ![Architectures](https://img.shields.io/badge/arch-amd64%20%7C%20aarch64-1f2430)
 [![Support](https://img.shields.io/badge/support-GitHub%20Issues-1f2430)](https://github.com/bengulliford/Bramwell/issues)
 
-Everything in Bramwell, plus the browser agent and custom reports, on your own hardware.
-Local Pro licence: $5 a month.
+Everything in Bramwell, plus the on-box browser agent, on your own hardware. Local Pro
+licences ($5 a month) are not on sale yet; until they are, Pro runs with the free feature set.
 
 ## About
 
