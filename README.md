@@ -16,3 +16,4 @@ Your AI butler for the smart home. Alfred runs real devices, drives the open int
 ## Apps in this repository
 
 - **Bramwell** — the AI-butler Brain + dashboard. See [`bramwell/DOCS.md`](bramwell/DOCS.md).
+- **Bramwell Pro** — everything in Bramwell plus the on-box browser agent and custom reports (Local Pro licence). See [`bramwell-pro/DOCS.md`](bramwell-pro/DOCS.md).

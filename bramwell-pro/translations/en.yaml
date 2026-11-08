@@ -1,0 +1,20 @@
+---
+configuration:
+  ha_url:
+    name: Home Assistant URL (internal)
+    description: >-
+      How Bramwell reaches Home Assistant from inside the app. Leave the default
+      (http://supervisor/core) unless you know why you are changing it.
+  ha_user_url:
+    name: Home Assistant URL for your browser
+    description: >-
+      The address your browser uses for Home Assistant, used by "Log in with Home
+      Assistant" on the standalone tab. Leave blank to auto-detect. Set it if Home
+      Assistant runs behind a reverse proxy or Nabu Casa.
+  frigate_base_url:
+    name: Frigate URL
+    description: >-
+      Optional. The base URL of your Frigate instance (for example
+      http://192.168.1.50:5000), used for camera context in chat.
+network:
+  8080/tcp: Standalone web UI. Opens Bramwell in its own tab, login with Home Assistant.

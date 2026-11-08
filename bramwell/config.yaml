@@ -16,9 +16,9 @@ name: Bramwell
 version: "1.0.0-beta.20"
 slug: bramwell
 description: >-
-  Bramwell — your AI butler for the smart home. Alfred runs real devices,
-  drives the open internet on your behalf, and keeps quiet excellence
-  across every household errand.
+  Alfred, an AI butler for Home Assistant: chat and voice control,
+  automations without YAML, and a watchful eye on your home. Free; bring
+  your own ChatGPT, Claude, or Gemini.
 url: https://bramwell.app
 arch:
   - amd64

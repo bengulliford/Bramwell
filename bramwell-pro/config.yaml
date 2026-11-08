@@ -9,9 +9,8 @@ name: Bramwell Pro
 version: "1.0.0-pro.20"
 slug: bramwell-pro
 description: >-
-  Bramwell Pro — Alfred plus the on-box browser-agent. Runs real devices,
-  drives the open internet on your behalf, and handles household errands,
-  all on your own hardware (Local Pro).
+  Everything in Bramwell plus the on-box browser agent and custom
+  reports, all on your own hardware (Local Pro licence).
 url: https://bramwell.app
 arch:
   - amd64
