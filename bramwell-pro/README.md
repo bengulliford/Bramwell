@@ -10,17 +10,16 @@ Local Pro licence: $5 a month.
 
 ## About
 
-Bramwell Pro is the same Alfred with two more hands.
+Bramwell Pro is the same Alfred with an extra pair of hands.
 
 - **Browser agent.** Alfred steers a real browser on your box: installing apps, working through
   setup screens, changing settings, reaching the LAN-only pages a cloud agent never can. Every
   errand runs inside an allowlist, with an audit log and a kill switch you own.
-- **Custom reports.** Ask a question and get an in-depth report built from your home's own
-  history: energy, comfort, device health, whatever you are curious about.
+- **Custom reports** are available in both apps today and are planned to join the Local Pro
+  tier when licences go on sale.
 
 Settings, licence, and credentials are shared with the free Bramwell app, so switching between
-the two keeps your data. Local Pro licences are not on sale yet; until they are, Bramwell Pro
-runs with the free feature set.
+the two keeps your data.
 
 ## Getting started
 

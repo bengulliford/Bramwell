@@ -21,10 +21,10 @@ Bramwell adds a concierge dashboard to Home Assistant with Alfred inside it.
 - **A watchful eye.** Bramwell watches the connection, the tokens, and the AI provider, and says
   so before something becomes a problem.
 
-Everything runs on your box. Your keys stay yours, and Bramwell sends nothing anywhere else.
+Everything runs on your box. Your chats go only to the AI provider you choose, with your own
+keys, and Bramwell has no telemetry.
 
-**Bramwell Pro**, the other app in this repository, adds the on-box browser agent and custom
-reports.
+**Bramwell Pro**, the other app in this repository, adds the on-box browser agent.
 
 ## Getting started
 

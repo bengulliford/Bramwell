@@ -35,7 +35,9 @@ The companion is **free** — there's no license check on voice. Full setup and 
 
 ## Switching between Bramwell and Bramwell Pro
 
-Local Pro licences are not on sale yet; until they are, Bramwell Pro runs with the free feature set. Settings, license, and stored credentials live in `/config/.bramwell/`, shared by both apps — switching keeps your data. **Order matters once**: if you installed Bramwell before June 2026, update it and let it start **once** (this migrates the old `/data` state into the shared dir) *before* installing Bramwell Pro. Installing Pro first creates fresh state, and the older data stays parked in `/data` — the log will tell you how to recover it deliberately if that happens.
+Local Pro licences are not on sale yet; until they are, Bramwell Pro runs with the free feature set.
+
+Settings, license, and stored credentials live in `/config/.bramwell/`, shared by both apps — switching keeps your data. **Order matters once**: if you installed Bramwell before June 2026, update it and let it start **once** (this migrates the old `/data` state into the shared dir) *before* installing Bramwell Pro. Installing Pro first creates fresh state, and the older data stays parked in `/data` — the log will tell you how to recover it deliberately if that happens.
 
 Don't run both apps at the same time: they share the same state database and direct port.
 

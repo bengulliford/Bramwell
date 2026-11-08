@@ -46,8 +46,6 @@ ingress_port: 8080
 #    HA render the OPEN WEB UI button pointing at it.
 ports:
   8080/tcp: 8080
-ports_description:
-  8080/tcp: "Bramwell standalone UI — opens in its own tab, login with Home Assistant"
 webui: "http://[HOST]:[PORT:8080]/"
 # Map Home Assistant's config dir read-write so LocalFileClient can edit
 # YAML in place (run.sh sets HaConfig__Path=/config). The legacy `config:rw`
