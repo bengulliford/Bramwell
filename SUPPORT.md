@@ -39,9 +39,10 @@ The redactor strips token-shaped substrings (Bearer headers, `sk-…` keys, JWTs
 
 ## Where to send a report
 
-- **Bugs / install help:** open an issue at [github.com/bengulliford/Bramwell/issues](https://github.com/bengulliford/Bramwell/issues) — the free tier is community-supported, so the issue tracker is where answers accumulate.
-- **Security:** `security@bramwell.app`. Do not post secrets or exploit details in a public issue.
-- **Feature requests:** the same issue tracker, labelled `enhancement`.
+- **Questions / install help:** ask in [GitHub Discussions](https://github.com/bengulliford/Bramwell/discussions) — the free tier is community-supported, so Discussions is where answers accumulate. Use the Q&A category so a reply can be marked as the answer.
+- **Bugs:** open an issue at [github.com/bengulliford/Bramwell/issues](https://github.com/bengulliford/Bramwell/issues) with a support bundle attached.
+- **Security:** `security@bramwell.app`. Do not post secrets or exploit details in a public issue or thread.
+- **Feature requests:** the Ideas category in Discussions, or the issue tracker labelled `enhancement`.
 
 ## Versions
 

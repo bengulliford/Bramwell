@@ -29,8 +29,9 @@ setup, and where to get help.
 
 ## Support
 
-Local Pro comes with email support. The free tier is community-supported:
-[GitHub Issues](https://github.com/bengulliford/Bramwell/issues) for bugs and install help,
-`security@bramwell.app` for security reports. Bramwell is built and supported by one person. If
-Alfred earns his keep in your home, a [tip via PayPal](https://paypal.me/bengulliford) is welcome
-and entirely optional.
+Local Pro licences will include email support once they are on sale. Until then both apps are
+community-supported. Ask questions and get install help in
+[GitHub Discussions](https://github.com/bengulliford/Bramwell/discussions), report bugs in
+[GitHub Issues](https://github.com/bengulliford/Bramwell/issues), and send security reports to
+`security@bramwell.app`. Bramwell is built and supported by one person. If Alfred earns his keep
+in your home, a [tip via PayPal](https://paypal.me/bengulliford) is welcome and entirely optional.

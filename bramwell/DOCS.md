@@ -47,6 +47,8 @@ The app log surfaces Brain's `Microsoft.Extensions.Logging` output with the bash
 
 ## Support
 
-See [`docs/SUPPORT.md`](https://github.com/bengulliford/Bramwell/blob/main/SUPPORT.md) for the redacted bundle workflow and where to file reports.
+Questions and install help: [GitHub Discussions](https://github.com/bengulliford/Bramwell/discussions). Bugs: [GitHub Issues](https://github.com/bengulliford/Bramwell/issues). Security reports: `security@bramwell.app`, never a public thread.
+
+See [`SUPPORT.md`](https://github.com/bengulliford/Bramwell/blob/main/SUPPORT.md) for the redacted support-bundle workflow; attach a bundle to any bug report.
 
 Bramwell is built and supported by one person. If Alfred earns his keep in your home, you can [leave a tip via PayPal](https://paypal.me/bengulliford). Entirely optional — nothing is gated behind it.
